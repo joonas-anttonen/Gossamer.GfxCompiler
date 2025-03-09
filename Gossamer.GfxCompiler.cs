@@ -228,7 +228,7 @@ class GfxCompiler
             {
                 string stageProfile = StageNameToProfile(stageName);
 
-                dxcProcess.StartInfo.Arguments = $"-T {stageProfile} -E {stageEntryPoint} -WX -spirv -fspv-reflect -fspv-target-env=vulkan1.3 -Fo \"{dxcOutputFile}\" \"{shaderDefinition.Filename}\"";
+                dxcProcess.StartInfo.Arguments = $"-T {stageProfile} -E {stageEntryPoint} -WX -spirv -fspv-target-env=vulkan1.3 -Fo \"{dxcOutputFile}\" \"{shaderDefinition.Filename}\"";
                 dxcProcess.Start();
                 dxcProcess.WaitForExit();
 
@@ -270,6 +270,7 @@ class GfxCompiler
             ShaderStageJson[] shaderStagesJson = shaderPipeline.Bytecodes.Select(shaderBytecode =>
             {
                 int bytecodeLength = shaderBytecode.Bytecode.Length;
+                int bytecodeOffset = binaryChunk.Length;
 
                 // Copy the shader bytecode to the binary chunk
                 Array.Resize(ref binaryChunk, binaryChunk.Length + bytecodeLength);
@@ -278,7 +279,7 @@ class GfxCompiler
                 return new ShaderStageJson(
                     Stage: StageNameToFlag(shaderBytecode.Stage),
                     EntryPoint: shaderBytecode.EntryPoint,
-                    Offset: binaryChunk.Length,
+                    Offset: bytecodeOffset,
                     Size: bytecodeLength);
             }).ToArray();
 
