@@ -2,6 +2,7 @@
 
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 
@@ -200,7 +201,20 @@ class GfxCompiler
         string dxcOutputFile = Path.GetTempFileName();
 
         using Process dxcProcess = new();
-        dxcProcess.StartInfo.FileName = "External/dxc.exe";
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            dxcProcess.StartInfo.FileName = "External/dxc.exe";
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            dxcProcess.StartInfo.FileName = "External/dxc";
+        }
+        else
+        {
+            WriteLine("Error: Unsupported operating system");
+            yield break;
+        }
 
         List<ShaderBytecode> shaderBytecodes = [];
 
