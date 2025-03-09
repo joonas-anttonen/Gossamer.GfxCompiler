@@ -1,0 +1,4 @@
+{
+    "explorer.excludeGitIgnore": true,
+    "cmake.ignoreCMakeListsMissing": true
+}
