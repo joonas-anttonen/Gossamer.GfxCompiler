@@ -289,7 +289,7 @@ class GfxCompiler
         // Is this a valid package?
         if (shaderPackageJson.Pipelines.Count == 0)
         {
-            Write($"Error: No shader programs were compiled");
+            WriteLine($"Error: No shader programs were compiled");
             return 1;
         }
 
@@ -311,7 +311,7 @@ class GfxCompiler
         outputWriter.Write(binaryChunk);
 
         // What we produced
-        Write($"Package -> {path}");
+        WriteLine($"Package -> {path}");
         return 0;
     }
 }
