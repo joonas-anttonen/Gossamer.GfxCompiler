@@ -12,8 +12,6 @@ class GfxCompiler
 {
     static int Main(string[] args)
     {
-        Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetExecutingAssembly()!.Location)!);
-
         if (args.Length == 0 || args.Length < 2 || args[0] == "-h" || args[0] == "--help" || args[0] == "/?" || args[0] == "/help")
         {
             WriteLine("Usage: Gossamer.GfxCompiler <input> <output>" +
