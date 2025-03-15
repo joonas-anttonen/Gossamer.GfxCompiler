@@ -26,6 +26,9 @@ class GfxCompiler
         string inputArg = Path.GetFullPath(args[0]);
         string outputArg = Path.GetFullPath(args[1]);
 
+        WriteLine($"Input -> {inputArg}");
+        WriteLine($"Output -> {outputArg}");
+
         return ProducePackageFile(CompileShaders(ParseInputFiles(CollectInputFiles(inputArg))), outputArg);
     }
 
